@@ -1,0 +1,54 @@
+1.Прибавить к дате data(Sale) 2 месяца, отнять из даты 3 месяца.
+Select data from Sale
+
+select dateadd(mm, 2, data),
+dateadd(mm, -3, data)
+from Sale
+go
+
+2. Вывести названия задач, которые начинаются до 19 мая 2011г.
+Я не смог понять что за задачи, какое 19 мая, у нас  продажи все в феврале 2011
+все что я нашел связанное с названием это, название дня недели
+select datename(w, 2011-5-19)
+
+Select data,datename(w,data) Day from Sale
+where data <='2011-02-19'
+order by data
+
+3. Определить, сколько дней осталось до Рождества.
+select datediff(day, getdate(),'2019-12-25')
+go
+
+4. Определить, какой день недели будет послезавтра.
+select datename(w, dateadd(dd, 2, getdate()) )
+go
+
+5. Округлить до целого с избытком и недостатком значения столбца cost.
+Select cost from Product
+
+select floor(cost) Snedostatok, 
+ceiling(cost) Sizbitkom from Product
+go
+
+6. Вывести название месяца в датах продаж.
+select datename(mm, data) Month from Sale; 
+
+7. Определить сколько лет, месяцев прошло с даты каждой продажи.
+select data, 
+datediff(yy, data, getdate()) Years,
+datediff(mm, data, getdate())  Month from sale;
+
+8. Вывести фамилии сотрудников.
+9.Вывести имена сотрудников.
+SELECT SUBSTRING(sp_name, 1, CHARINDEX(' ', sp_name) - 1) AS Lastname,     
+       SUBSTRING(sp_name,
+                 CHARINDEX(' ', sp_name) + 1,
+                 LEN(sp_name) - CHARINDEX(' ', sp_name)) AS Firstname
+FROM Sperson
+
+10. Представить данные столбца m_name в виде firma – название фирмы.
+Select stuff(m_name,1,0,'firma - ') from Manufact
+
+11. Заменить значение null в столбце man_id на значение 0.
+select isnull(man_id, 0) from sperson
+go
